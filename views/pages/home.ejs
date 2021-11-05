@@ -1,0 +1,23 @@
+<%- include('../template/head')-%>
+
+<body>
+    <div class="row">
+        <div class="col-sm-3">
+            <button class="btn btn-danger" onclick="deleteExistingRoute()">delete route</button>
+            <button class="btn btn-primary" onclick="addNewRoute()">add route</button>
+        </div>
+        <div class="col">
+            <div id='map'></div>
+        </div>
+    </div>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
+    
+    
+    <script>
+        // https://api.mapbox.com/directions/v5/mapbox/driving/106.1502463,-6.0947954;106.152018,-6.112777?overview=full&geometries=geojson&access_token=
+    </script>
+</body>
+
+</html>
