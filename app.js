@@ -49,7 +49,7 @@ app.get('/api/getNear', (req, res) => {
 
                 pendonorData.push({
                     nama: queryResult[i].name.S,
-                    umur: queryResult[i].name.S,
+                    umur: queryResult[i].age.S,
                     alamat: queryResult[i].alamat.S,
                     nohp: queryResult[i].nohp.S,
                     email: queryResult[i].email.S,

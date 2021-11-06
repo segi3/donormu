@@ -12,31 +12,22 @@ fetch('/api/auth')
             // success
             console.log(position)
 
-            MapApp([position.coords.longitude, position.coords.latitude])
+            MapApp(position.coords.longitude, position.coords.latitude)
 
         }, () => {
             // error
-            MapApp([-122.68035572839027, 45.52729517240144])
+            MapApp(-122.68035572839027, 45.52729517240144)
 
         }, {
             enableHighAccuracy: true
         })
 
-        const MapApp = (center) => {
-
-            var start = {
-                lat: 22.3077423,
-                lng: 114.2287582
-            }
-            var finish = {
-                lat: 22.3131334,
-                lng: 114.2205973
-            }
+        const MapApp = (long, lat) => {
 
             map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/streets-v11',
-                center: center,
+                center: [long, lat],
                 zoom: 14
             });
 
@@ -44,7 +35,9 @@ fetch('/api/auth')
 
             map.addControl(nav)
 
-            addRoute()
+            addRoute(long, lat)
+
+            getPendonorList(long, lat)
         }
     });
 
@@ -204,3 +197,83 @@ const addRoute = () => {
         })
     });
 }
+
+const getPendonorList = (long, lat) => {
+
+    $.ajax({
+        url: "/api/getNear?longitude=106.147300&latitude=-6.111800}",
+        method: 'get',
+        success: function(result) {
+            console.log(result)
+            const data = result.data
+
+            for (var i=0; i<data.length; i++) {
+                $('#list-pendonor').append(`
+
+                                    <div class="p-1 mt-1 card">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="d-flex flex-column align-items-center p-0" style="flex: 0 0 50px;">
+                                <h2 class="align-self-center" style="">` + data[i].golongan_darah + `</h2>
+                                <span class="badge badge-danger">` + data[i].resus + `</span>
+                            </div>
+                            <div class="pl-2 d-flex align-items-center">
+                                <h5 class="align-self-center">` + data[i].nama + `</h5>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <div class="row panel-badan">
+                                    <div class="col-12">
+                                        <strong>Umur:</strong> ` + data[i].umur + `
+                                    </div>
+                                </div>
+                                <div class="row panel-badan">
+                                    <div class="col-12">
+                                        <strong>Berat Badan:</strong>
+                                    </div>
+                                    <div class="col-12">
+                                    ` + data[i].berat_badan + ` kg
+                                    </div>
+                                </div>
+                                <div class="row panel-badan">
+                                    <div class="col-12">
+                                        <strong>Tinggi Badan:</strong>
+                                    </div>
+                                    <div class="col-12">
+                                    ` + data[i].tinggi_badan + ` cm
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-6">
+                                <div class="row panel-badan">
+                                    <div class="col-12">
+                                        <strong>Email:</strong>
+                                    </div>
+                                    <div class="col-12">
+                                    ` + data[i].email + `
+                                    </div>
+                                </div>
+                                <div class="row panel-badan">
+                                    <div class="col-12">
+                                        <strong>No Hp:</strong>
+                                    </div>
+                                    <div class="col-12">
+                                    ` + data[i].nohp + `
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `)
+            }
+        }
+    });
+}
+
+$(document).ready(function() {
+
+});
+
