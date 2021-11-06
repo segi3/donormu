@@ -48,19 +48,37 @@ const createTable = () => {
 }
 
 const addData = () => {
+
+    // const geo = {
+    //     latitude: newdata.lattitude,
+    //     longitude: newdata.longitude
+    // }
+    
+    // const personData = {
+    //     name: newdata.person.name,
+    //     age: newdata.person.age
+    // }
+
     // add data
     myGeoTableManager.putPoint({
         RangeKeyValue: { S: '1527' }, // Use this to ensure uniqueness of the hash/range pairs.
         GeoPoint: { // An object specifying latitutde and longitude as plain numbers. Used to build the geohash, the hashkey and geojson data
-            latitude: -6.111704,
-            longitude: 106.147299
+            latitude: -6.110700,
+            longitude: 106.147030
         },
         PutItemInput: { // Passed through to the underlying DynamoDB.putItem request. TableName is filled in for you.
             Item: { // The primary key, geohash and geojson data is filled in for you
-                country: { S: 'UK' }, // Specify attribute values using { type: value } objects, like the DynamoDB API.
-                capital: { S: 'London' },
-                name: {S: 'rafi nizar'},
-                age: { S: '21'}
+                provinsi: { S: 'Banten' }, // Specify attribute values using { type: value } objects, like the DynamoDB API.
+                kota: { S: 'Serang' },
+                name: {S: 'rafi'},
+                age: { S: '21'},
+                goldarah: { S: 'A'}, // A B AB O
+                resus: { S: 'negatif'}, // negatif positif
+                nohp: { S: '081218182929'},
+                email: { S: 'rafi@email.com'},
+                alamat: { S: 'Rahayu Residence Blok A7/1, Jl Kelapa Dua'},
+                beratBadan: { S: '49'},
+                tinggiBadan: { S: '176'}
             },
             // ... Anything else to pass through to `putItem`, eg ConditionExpression
         }
@@ -98,19 +116,32 @@ const deleteData = () => {
     .then(function() { console.log('Done!') });
 }
 
-const radiusQuery = () => {
-    // Querying 100km from Cambridge, UK
-    myGeoTableManager.queryRadius({
-        RadiusInMeter: 100000,
-        CenterPoint: {
-            latitude: -6.111720,
-            longitude: 106.147299
-        }
-    })
-    // Print the results, an array of DynamoDB.AttributeMaps
-    .then((result) => {
-        console.log(result)
-    });
+const radiusQuery = async (coords, radius) => {
+
+    const rad = 100000 // 100km
+
+    const centerCoords = {
+        latitude: coords.latitude,
+        longitude: coords.longitude
+    }
+
+    try {
+        // Querying 100km from Cambridge, UK
+        const result = await myGeoTableManager.queryRadius({
+            RadiusInMeter: rad,
+            CenterPoint: {
+                latitude: parseFloat(centerCoords.latitude),
+                longitude: parseFloat(centerCoords.longitude)
+            }
+        })
+        
+        return result
+
+    } catch (err) {
+        console.log(err)
+        throw err
+    }
+
 }
 
 // createTable()
@@ -118,5 +149,5 @@ const radiusQuery = () => {
 // radiusQuery()
 
 module.exports = {
-
+    radiusQuery
 }

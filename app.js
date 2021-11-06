@@ -25,6 +25,51 @@ app.get('/api/auth', (req, res) => {
     })
 })
 
+app.get('/api/getNear', (req, res) => {
+
+    // http://localhost:3000/api/getNear?longitude=106.147300&latitude=-6.111800
+
+    const center = {
+        longitude: req.query.longitude,
+        latitude: req.query.latitude
+    }
+
+    console.log(center)
+
+    awsgeo.radiusQuery(center, 1)
+        .then((queryResult) => {
+
+            var pendonorData = []
+
+            pendonorCoords = JSON.parse(queryResult[0].geoJson.S)
+
+            for (var i = 0; i<queryResult.length; i++) {
+
+                let tmp_coord = JSON.parse(queryResult[i].geoJson.S)
+
+                pendonorData.push({
+                    nama: queryResult[i].name.S,
+                    umur: queryResult[i].name.S,
+                    alamat: queryResult[i].alamat.S,
+                    nohp: queryResult[i].nohp.S,
+                    email: queryResult[i].email.S,
+                    golongan_darah: queryResult[i].goldarah.S,
+                    resus: queryResult[i].resus.S,
+                    berat_badan: queryResult[i].beratBadan.S,
+                    tinggi_badan: queryResult[i].tinggiBadan.S,
+                    coordinates: {
+                        latitude: tmp_coord.coordinates[1],
+                        longitude: tmp_coord.coordinates[0]
+                    }
+                })
+            }
+
+            res.status(200).send(pendonorData)
+        })
+    
+
+})
+
 app.get('/', function (req, res) {
     res.render('pages/home', { key:process.env.MAP_BOX_KEY })
 })
