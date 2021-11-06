@@ -48,6 +48,7 @@ app.get('/api/getNear', (req, res) => {
                 let tmp_coord = JSON.parse(queryResult[i].geoJson.S)
 
                 pendonorData.push({
+                    range_key: queryResult[i].rangeKey.S,
                     nama: queryResult[i].name.S,
                     umur: queryResult[i].age.S,
                     alamat: queryResult[i].alamat.S,

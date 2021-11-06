@@ -210,12 +210,12 @@ const getPendonorList = (long, lat) => {
             for (var i=0; i<data.length; i++) {
                 $('#list-pendonor').append(`
 
-                                    <div class="p-1 mt-1 card">
+                <div class="p-1 mt-1 card" onclick="pendonorClick(this)" id="pendonor-` + data[i].range_key + `" data-long="` + data[i].coordinates.longitude + `" data-lat="` + data[i].coordinates.latitude + `">
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="d-flex flex-column align-items-center p-0" style="flex: 0 0 50px;">
                                 <h2 class="align-self-center" style="">` + data[i].golongan_darah + `</h2>
-                                <span class="badge badge-danger">` + data[i].resus + `</span>
+                                <span class="badge badge-resus badge-danger">` + data[i].resus + `</span>
                             </div>
                             <div class="pl-2 d-flex align-items-center">
                                 <h5 class="align-self-center">` + data[i].nama + `</h5>
@@ -271,6 +271,24 @@ const getPendonorList = (long, lat) => {
             }
         }
     });
+}
+
+const resetPendonorCardColor = () => {
+    $("#list-pendonor > .card").removeClass("card-pendonor-active")
+    $(".badge-resus").removeClass("badge-resus-active")
+}
+
+const pendonorClick = (input) => {
+
+    resetPendonorCardColor()
+
+    var id = input.getAttribute('id')
+
+    console.log(id)
+
+    // tambah class active
+    $('#' + id).addClass('card-pendonor-active')
+    const resus_badge = $('#' + id).find('.badge'); resus_badge.addClass('badge-resus-active')
 }
 
 $(document).ready(function() {
