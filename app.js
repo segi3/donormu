@@ -64,7 +64,10 @@ app.get('/api/getNear', (req, res) => {
                 })
             }
 
-            res.status(200).send(pendonorData)
+            res.status(200).send({
+                message: 'success',
+                data: pendonorData
+            })
         })
     
 

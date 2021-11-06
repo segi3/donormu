@@ -1,0 +1,24 @@
+#map-app {
+    position: relative;
+    margin-left: 370px;
+    height: 100vh;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+#sidebar-app {
+    position: fixed;
+    width: 370px;
+    background-color: #DDD; 
+    font-size: 21px;
+    overflow-y: scroll;
+    top: 0;
+    bottom: 0;
+}
+
+.panel-badan {
+    font-size: 13px;
+}
