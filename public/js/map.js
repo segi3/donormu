@@ -201,7 +201,7 @@ const addRoute = () => {
 const getPendonorList = (long, lat) => {
 
     $.ajax({
-        url: "/api/getNear?longitude=106.147300&latitude=-6.111800}",
+        url: "/api/getNear?longitude=" + long + "&latitude=" + lat,
         method: 'get',
         success: function(result) {
             console.log(result)

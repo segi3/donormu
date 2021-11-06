@@ -74,7 +74,7 @@ app.get('/api/getNear', (req, res) => {
 })
 
 app.get('/', function (req, res) {
-    res.render('pages/home', { key:process.env.MAP_BOX_KEY })
+    res.render('pages/home')
 })
 
 
