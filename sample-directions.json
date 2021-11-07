@@ -1,8 +1,10 @@
 {
     "routes": [{
+        "weight_typical": 783.551,
+        "duration_typical": 631.351,
         "weight_name": "auto",
-        "weight": 850.011,
-        "duration": 689.07,
+        "weight": 783.551,
+        "duration": 631.351,
         "distance": 2881.654,
         "legs": [{
             "via_waypoints": [],
@@ -10,8 +12,10 @@
                 "iso_3166_1_alpha3": "IDN",
                 "iso_3166_1": "ID"
             }],
-            "weight": 850.011,
-            "duration": 689.07,
+            "weight_typical": 783.551,
+            "duration_typical": 631.351,
+            "weight": 783.551,
+            "duration": 631.351,
             "steps": [],
             "distance": 2881.654,
             "summary": "1"
@@ -119,5 +123,5 @@
         "location": [106.15202, -6.112734]
     }],
     "code": "Ok",
-    "uuid": "_pyIjm1KVK9dsR-AjmqvPOos0owEtTYvZlvD_3z-lcF62Zxm31f_GA=="
+    "uuid": "ltqaLtP8TH5xj24lc8vnHXyvLDQxkOgPNWrmJYoQMMsVKzoRMMfCpQ=="
 }
