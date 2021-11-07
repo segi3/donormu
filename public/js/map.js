@@ -35,7 +35,7 @@ fetch('/api/auth')
 
             map.addControl(nav)
 
-            addRoute(long, lat)
+            // addRoute(long, lat)
 
             getPendonorList(long, lat)
         }
@@ -203,11 +203,10 @@ const getPendonorList = (long, lat) => {
     $.ajax({
         url: "/api/getNear?longitude=" + long + "&latitude=" + lat,
         method: 'get',
-        success: function(result) {
-            console.log(result)
+        success: function (result) {
             const data = result.data
 
-            for (var i=0; i<data.length; i++) {
+            for (var i = 0; i < data.length; i++) {
                 $('#list-pendonor').append(`
 
                 <div class="p-1 mt-1 card" onclick="pendonorClick(this)" id="pendonor-` + data[i].range_key + `" data-long="` + data[i].coordinates.longitude + `" data-lat="` + data[i].coordinates.latitude + `">
@@ -269,8 +268,65 @@ const getPendonorList = (long, lat) => {
                 </div>
                 `)
             }
+
+            // process data
+            var marker_data = []
+           
+            for (var i = 0; i < data.length; i++) {
+                
+                marker_data.push({
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [
+                            parseFloat(data[i].coordinates.longitude),
+                            parseFloat(data[i].coordinates.latitude)
+                        ]
+                    },
+                    'properties': {
+                        'title': data[i].nama,
+                    }
+                })
+            }
+
+            map.loadImage(
+                'http://localhost:3000/asset/marker.png',
+                (error, image) => {
+                    if (error) throw error
+                    console.log(data)
+                    map.addImage('custom-marker', image)
+                    // Add a GeoJSON source with 2 points
+                    map.addSource('points', {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': marker_data
+                        }
+                    });
+
+                    // Add a symbol layer
+                    map.addLayer({
+                        'id': 'points',
+                        'type': 'symbol',
+                        'source': 'points',
+                        'layout': {
+                            'icon-image': 'custom-marker',
+                            // get the title name from the source's "title" property
+                            'text-field': ['get', 'title'],
+                            'text-font': [
+                                'Open Sans Semibold',
+                                'Arial Unicode MS Bold'
+                            ],
+                            'text-offset': [0, 1.25],
+                            'text-anchor': 'top'
+                        }
+                    });
+                }
+            );
         }
     });
+
+
 }
 
 const resetPendonorCardColor = () => {
@@ -288,10 +344,10 @@ const pendonorClick = (input) => {
 
     // tambah class active
     $('#' + id).addClass('card-pendonor-active')
-    const resus_badge = $('#' + id).find('.badge'); resus_badge.addClass('badge-resus-active')
+    const resus_badge = $('#' + id).find('.badge');
+    resus_badge.addClass('badge-resus-active')
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
 
 });
-
