@@ -47,40 +47,69 @@ const createTable = () => {
         });
 }
 
-const addData = () => {
+const randomInt = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-    // const geo = {
-    //     latitude: newdata.lattitude,
-    //     longitude: newdata.longitude
-    // }
+const addData = (newdata) => {
+
+    const key = {
+        S: String(randomInt(1000, 9999))
+    }
+
+    const geo = {
+        latitude: newdata.latitude,
+        longitude: newdata.longitude
+    }
     
-    // const personData = {
-    //     name: newdata.person.name,
-    //     age: newdata.person.age
-    // }
+    const personData = {
+        provinsi: {
+            S: String(newdata.person.provinsi)
+        },
+        kota: {
+            S: String(newdata.person.kota)
+        },
+        name: {
+            S: String(newdata.person.name)
+        },
+        age: {
+            S: String(newdata.person.age)
+        },
+        goldarah: {
+            S: String(newdata.person.goldarah)
+        },
+        resus: {
+            S: String(newdata.person.resus)
+        },
+        nohp: {
+            S: String(newdata.person.nohp)
+        },
+        email: {
+            S: String(newdata.person.email)
+        },
+        alamat: {
+            S: String(newdata.person.alamat)
+        },
+        beratBadan: {
+            S: String(newdata.person.beratBadan)
+        },
+        tinggiBadan: {
+            S: String(newdata.person.tinggiBadan)
+        }
+    }
+
+    console.log(key)
+    console.log(geo)
+    console.log(personData)
 
     // add data
     myGeoTableManager.putPoint({
-        RangeKeyValue: { S: '1527' }, // Use this to ensure uniqueness of the hash/range pairs.
-        GeoPoint: { // An object specifying latitutde and longitude as plain numbers. Used to build the geohash, the hashkey and geojson data
-            latitude: -6.110700,
-            longitude: 106.147030
-        },
+        RangeKeyValue: key, // Use this to ensure uniqueness of the hash/range pairs.
+        GeoPoint: geo,
         PutItemInput: { // Passed through to the underlying DynamoDB.putItem request. TableName is filled in for you.
-            Item: { // The primary key, geohash and geojson data is filled in for you
-                provinsi: { S: 'Banten' }, // Specify attribute values using { type: value } objects, like the DynamoDB API.
-                kota: { S: 'Serang' },
-                name: {S: 'rafi'},
-                age: { S: '21'},
-                goldarah: { S: 'A'}, // A B AB O
-                resus: { S: 'negatif'}, // negatif positif
-                nohp: { S: '081218182929'},
-                email: { S: 'rafi@email.com'},
-                alamat: { S: 'Rahayu Residence Blok A7/1, Jl Kelapa Dua'},
-                beratBadan: { S: '49'},
-                tinggiBadan: { S: '176'}
-            },
-            // ... Anything else to pass through to `putItem`, eg ConditionExpression
+            Item: personData,
         }
     }).promise()
     .then(function() { console.log('Done!') });
@@ -149,5 +178,6 @@ const radiusQuery = async (coords, radius) => {
 // radiusQuery()
 
 module.exports = {
-    radiusQuery
+    radiusQuery,
+    addData
 }

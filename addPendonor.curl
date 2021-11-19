@@ -1,0 +1,19 @@
+curl --location --request POST 'http://localhost:3000/api/addPendonor' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "latitude": -6.101834,
+    "longitude": 106.149267,
+    "person": {
+        "provinsi": "Banten",
+        "kota": "Serang",
+        "name": "Rafi Yudhistira",
+        "age": "22",
+        "goldarah": "AB",
+        "resus": "positif",
+        "nohp": "08 14045",
+        "email": "rapuy@email.com",
+        "alamat": "serang lama",
+        "beratBadan": "60",
+        "tinggiBadan": "170"
+    }
+}'
