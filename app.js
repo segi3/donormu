@@ -11,6 +11,9 @@ const helper = require('./utils/helper')
 // geo
 const awsgeo = require('./dynamodb-geo')
 
+// mapbox controller
+const { getRoute } = require('./controller/mapboxController')
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -22,6 +25,24 @@ app.get('/api/auth', (req, res) => {
     res.status(200).send({
         message: 'success',
         key: process.env.MAP_BOX_KEY
+    })
+})
+
+// ?slong=106.150242&slat=-6.0947983&flong=106.154284&flat=-6.097460
+
+app.get('/api/getRoute', async (req, res) => {
+    const { slong, slat, flong, flat } = req.query
+
+    const route = await getRoute({
+        long: slong,
+        lat: slat
+    }, {
+        long: flong,
+        lat: flat
+    })
+
+    res.status(200).send({
+        route
     })
 })
 
