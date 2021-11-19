@@ -17,7 +17,10 @@ const _fetchMapboxRoute = async (start, end) => {
 const getRoute = async (start, end) => {
 
     const data = await _fetchMapboxRoute(start, end)
-    return data.routes[0].geometry.coordinates
+    return {
+        route: data.routes[0].geometry.coordinates,
+        distance: data.routes[0].distance
+    }
 }
 
 module.exports = {

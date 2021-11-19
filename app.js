@@ -41,9 +41,7 @@ app.get('/api/getRoute', async (req, res) => {
         lat: flat
     })
 
-    res.status(200).send({
-        route
-    })
+    res.status(200).send(route)
 })
 
 app.get('/api/getNear', (req, res) => {

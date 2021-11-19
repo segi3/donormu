@@ -259,8 +259,6 @@ const getPendonorList = (long, lat) => {
 }
 
 const deleteExistingRoute = () => {
-    console.log('deleted')
-
     try {
         map.removeLayer('route')
         map.removeSource('route')
@@ -269,9 +267,19 @@ const deleteExistingRoute = () => {
     }
 }
 
+const deleteExistingDistanceLabel = () => {
+    try {
+        map.removeLayer('distanceLabelLayer')
+        map.removeSource('distanceLabel')
+    } catch(err) {
+        console.log(err)
+    }
+}
+
 const addRoute = (slong, slat, flong, flat) => {
 
     deleteExistingRoute()
+    deleteExistingDistanceLabel()
 
     $.ajax({
         url: "/api/getRoute?slong="+slong+"&slat="+slat+"&flong="+flong+"&flat="+flat,
@@ -301,6 +309,44 @@ const addRoute = (slong, slat, flong, flat) => {
                     'line-width': 8
                 }
             })
+
+            // add distance label
+            map.addSource('distanceLabel', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'FeatureCollection',
+                    'features': [{
+                            'type': 'Feature',
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [
+                                    parseFloat(flong), parseFloat(flat)
+                                ]
+                            },
+                            'properties': {
+                                'description': result.distance + " m"
+                            }
+                        }
+                    ]
+                }
+            });
+
+            map.addLayer({
+                'id': 'distanceLabelLayer',
+                'type': 'symbol',
+                'source': 'distanceLabel',
+                'layout': {
+                    'text-field': ['get', 'description'],
+                    'text-font': [
+                        'Open Sans Semibold',
+                        'Arial Unicode MS Bold'
+                    ],
+                    'text-offset': [0, -3],
+                    'text-anchor': 'top'
+                }
+            });
+
+            map.flyTo({center:[flong, flat]})
         }
     });
   
