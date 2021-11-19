@@ -1,5 +1,9 @@
 var map
 
+const addMyCursor = async (long, lat) => {
+
+}
+
 fetch('/api/auth')
     .then(response => response.json())
     .then((data) => {
@@ -11,12 +15,12 @@ fetch('/api/auth')
 
             // success
             console.log(position)
-
             MapApp(position.coords.longitude, position.coords.latitude)
 
         }, () => {
             // error
-            MapApp(-122.68035572839027, 45.52729517240144)
+            console.log("ERROR")
+            MapApp(106.845599, -6.2087634)
 
         }, {
             enableHighAccuracy: true
@@ -28,7 +32,8 @@ fetch('/api/auth')
                 container: 'map',
                 style: 'mapbox://styles/mapbox/streets-v11',
                 center: [long, lat],
-                zoom: 14
+                // center: [106.150289, -6.094634],
+                zoom: 17
             });
 
             const nav = new mapboxgl.NavigationControl()
@@ -38,6 +43,55 @@ fetch('/api/auth')
             // addRoute(long, lat)
 
             getPendonorList(long, lat)
+
+            map.on('load', () => {
+                // Add an image to use as a custom marker
+                map.loadImage(
+                    'http://localhost:3000/asset/blue.png',
+                    (error, image) => {
+                        if (error) throw error;
+                        map.addImage('my-marker', image);
+                        map.addSource('myPoints', {
+                            'type': 'geojson',
+                            'data': {
+                                'type': 'FeatureCollection',
+                                'features': [{
+                                        // feature for Mapbox DC
+                                        'type': 'Feature',
+                                        'geometry': {
+                                            'type': 'Point',
+                                            'coordinates': [
+                                                parseFloat(long), parseFloat(lat)
+                                            ]
+                                        },
+                                        'properties': {
+                                            'title': 'Anda'
+                                        }
+                                    }
+                                ]
+                            }
+                        });
+
+                        // Add a symbol layer
+                        map.addLayer({
+                            'id': 'myPointsLayer',
+                            'type': 'symbol',
+                            'source': 'myPoints',
+                            'layout': {
+                                'icon-image': 'my-marker',
+                                // get the title name from the source's "title" property
+                                'text-field': ['get', 'title'],
+                                'text-font': [
+                                    'Open Sans Semibold',
+                                    'Arial Unicode MS Bold'
+                                ],
+                                'text-offset': [0, 1.25],
+                                'text-anchor': 'top'
+                            }
+                        });
+                    }
+                );
+            });
         }
     });
 
@@ -271,9 +325,9 @@ const getPendonorList = (long, lat) => {
 
             // process data
             var marker_data = []
-           
+
             for (var i = 0; i < data.length; i++) {
-                
+
                 marker_data.push({
                     'type': 'Feature',
                     'geometry': {
