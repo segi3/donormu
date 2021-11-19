@@ -1,0 +1,131 @@
+{
+    "type": "FeatureCollection",
+    "query": ["rahayu", "residence", "blok", "a7", "no", "1", "serang", "banten"],
+    "features": [{
+        "id": "place.3780017280675190",
+        "type": "Feature",
+        "place_type": ["place"],
+        "relevance": 0.481481,
+        "properties": {
+            "wikidata": "Q10126"
+        },
+        "text": "Serang",
+        "place_name": "Serang, Banten, Indonesia",
+        "bbox": [105.825078, -6.336632, 106.412721, -5.80648],
+        "center": [106.15028, -6.12],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [106.15028, -6.12]
+        },
+        "context": [{
+            "id": "region.11849645724544000",
+            "wikidata": "Q3540",
+            "short_code": "ID-BT",
+            "text": "Banten"
+        }, {
+            "id": "country.12065990263114360",
+            "wikidata": "Q252",
+            "short_code": "id",
+            "text": "Indonesia"
+        }]
+    }, {
+        "id": "locality.4966594870675190",
+        "type": "Feature",
+        "place_type": ["locality"],
+        "relevance": 0.481481,
+        "properties": {
+            "wikidata": "Q25249721"
+        },
+        "text": "Serang",
+        "place_name": "Serang, Serang, Banten, Indonesia",
+        "bbox": [106.13311768, -6.13860655, 106.19937897, -6.08234215],
+        "center": [106.1633, -6.1083],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [106.1633, -6.1083]
+        },
+        "context": [{
+            "id": "place.3780017280675190",
+            "wikidata": "Q10126",
+            "text": "Serang"
+        }, {
+            "id": "region.11849645724544000",
+            "wikidata": "Q3540",
+            "short_code": "ID-BT",
+            "text": "Banten"
+        }, {
+            "id": "country.12065990263114360",
+            "wikidata": "Q252",
+            "short_code": "id",
+            "text": "Indonesia"
+        }]
+    }, {
+        "id": "region.11849645724544000",
+        "type": "Feature",
+        "place_type": ["region"],
+        "relevance": 0.333333,
+        "properties": {
+            "wikidata": "Q3540",
+            "short_code": "ID-BT"
+        },
+        "text": "Banten",
+        "place_name": "Banten, Indonesia",
+        "bbox": [105.000556003825, -7.11530129867493, 106.779872998495, -5.05454990200509],
+        "center": [106.25, -6.5],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [106.25, -6.5]
+        },
+        "context": [{
+            "id": "country.12065990263114360",
+            "wikidata": "Q252",
+            "short_code": "id",
+            "text": "Indonesia"
+        }]
+    }, {
+        "id": "country.7271798472143780",
+        "type": "Feature",
+        "place_type": ["country"],
+        "relevance": 0.333333,
+        "properties": {
+            "wikidata": "Q20",
+            "short_code": "no"
+        },
+        "text": "Norway",
+        "place_name": "Norway",
+        "matching_text": "NO",
+        "matching_place_name": "NO",
+        "bbox": [4.40079698619525, 57.906609500058, 31.2678854952283, 71.2176742998415],
+        "center": [8.80482073895072, 61.2483331493152],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [8.80482073895072, 61.2483331493152]
+        }
+    }, {
+        "id": "region.10043381735341280",
+        "type": "Feature",
+        "place_type": ["region"],
+        "relevance": 0.333333,
+        "properties": {
+            "wikidata": "Q242932",
+            "short_code": "TH-12"
+        },
+        "text": "Nonthaburi",
+        "place_name": "Nonthaburi, Thailand",
+        "matching_text": "NO",
+        "matching_place_name": "NO, Thailand",
+        "bbox": [100.262838000998, 13.7890080085693, 100.567781848611, 14.1391399682002],
+        "center": [100.51444, 13.8625],
+        "geometry": {
+            "type": "Point",
+            "coordinates": [100.51444, 13.8625]
+        },
+        "context": [{
+            "id": "country.10741565447002910",
+            "wikidata": "Q869",
+            "short_code": "th",
+            "text": "Thailand"
+        }]
+    }],
+    "attribution": "NOTICE: © 2021 Mapbox and its suppliers. All rights reserved. Use of this data is subject to the Mapbox Terms of Service (https://www.mapbox.com/about/maps/). This response and the information it contains may not be retained. POI(s) provided by Foursquare."
+}
