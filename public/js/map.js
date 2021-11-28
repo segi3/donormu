@@ -13,7 +13,11 @@ fetch('/api/auth')
             console.log(position)
             curLong = position.coords.longitude
             curLat = position.coords.latitude
-            MapApp(position.coords.longitude, position.coords.latitude)
+
+            curLong = 106.150290
+            curLat = -6.094859
+
+            MapApp(curLong, curLat)
 
         }, () => {
             // error
@@ -39,6 +43,8 @@ fetch('/api/auth')
             map.addControl(nav)
 
             // addRoute(long, lat)
+
+            // map.setCenter([106.154284, -6.09746])
 
             getPendonorList(long, lat)
             
@@ -139,7 +145,13 @@ const getPendonorList = (long, lat) => {
             for (var i = 0; i < data.length; i++) {
                 $('#list-pendonor').append(`
 
-                <div class="p-1 mt-1 card" onclick="pendonorClick(this)" id="pendonor-` + data[i].range_key + `" data-long="` + data[i].coordinates.longitude + `" data-lat="` + data[i].coordinates.latitude + `">
+                <div class="p-1 mt-1 card pendonor-item filter-`+ data[i].golongan_darah + ` filter-`+ data[i].resus +`"
+                    onclick="pendonorClick(this)"
+                    id="pendonor-` + data[i].range_key + `"
+                    data-gol="`+data[i].golongan_darah +`"
+                    data-resus="` + data[i].resus + `"
+                    data-long="` + data[i].coordinates.longitude + `"
+                    data-lat="` + data[i].coordinates.latitude + `">
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="d-flex flex-column align-items-center p-0" style="flex: 0 0 50px;">
@@ -255,7 +267,6 @@ const getPendonorList = (long, lat) => {
             );
         }
     });
-
 }
 
 const deleteExistingRoute = () => {
@@ -379,6 +390,71 @@ const pendonorClick = (input) => {
     addRoute(curLong, curLat, long, lat)
 }
 
-$(document).ready(function () {
+var golonganF = 'ALL'
+var resusF = 'ALL'
+const resetGolActive = () => {
+    $('.filter-gol').removeClass('filter-gol-active')
+}
+const resetResusActive = () => {
+    $('.filter-resus').removeClass('filter-resus-active')
+}
+const filterGolongan = (input) => {
 
+    golonganF = input.getAttribute('data-gol')
+
+    resetGolActive()
+    
+    console.log(golonganF, resusF)
+
+    if (golonganF == 'ALL') {
+        $('#gol-F-' + 'ALL').addClass('filter-gol-active')
+
+        $('.pendonor-item').hide()
+        $('.filter-negatif').show()
+        $('.filter-positif').show()
+        return
+    } else if (resusF == 'ALL') {
+        $('#gol-F-' + golonganF).addClass('filter-gol-active')
+
+        $('.pendonor-item').hide()
+        $('.filter-' + golonganF).show()
+        return
+    }
+
+    $('#gol-F-' + golonganF).addClass('filter-gol-active')
+    $('.pendonor-item').hide()
+    $('.filter-' + golonganF + '.filter-' + resusF).show()
+}
+
+const filterResus = (input) => {
+
+    resusF = input.getAttribute('data-resus')
+
+    resetResusActive()
+
+    console.log(golonganF, resusF)
+
+    if (resusF == 'ALL') {
+        $('#resus-F-' + 'ALL').addClass('filter-resus-active')
+
+        $('.pendonor-item').hide()
+        $('.filter-A').show()
+        $('.filter-B').show()
+        $('.filter-AB').show()
+        $('.filter-O').show()
+        return
+    } else if (golonganF == 'ALL') {
+        $('#resus-F-' + resusF).addClass('filter-resus-active')
+        $('.pendonor-item').hide()
+        $('.filter-' + resusF).show()
+        return
+    }
+
+    $('#resus-F-' + resusF).addClass('filter-resus-active')
+    $('.pendonor-item').hide()
+    $('.filter-' + golonganF + '.filter-' + resusF).show()
+}
+
+$(document).ready(function () {
+    
 });

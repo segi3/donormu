@@ -5,70 +5,44 @@
     <div>
         <!-- <div class="col-sm-3 pr-0" id="sidebar-app"> -->
         <div class="" id="sidebar-app">
-            <div>
+            <!-- <div>
                 <button class="btn btn-danger" onclick="deleteExistingRoute()">delete route</button>
                 <button class="btn btn-primary" onclick="addRoute()">add route</button>
                 <button class="btn btn-success" id="test">test button</button>
-            </div>  
-            <div class="d-flex flex-column mt-1 mx-2" id="list-pendonor">
-
-                <div class="p-1 mt-1 card" id="pendonor-1111" onclick="pendonorClick(this)">
-                    <div class="card-body">
-                        <div class="d-flex">
-                            <div class="d-flex flex-column align-items-center p-0" style="flex: 0 0 50px;">
-                                <h2 class="align-self-center" style="">O</h2>
-                                <span class="badge badge-resus badge-danger ">positif</span>
-                            </div>
-                            <div class="pl-2 d-flex align-items-center">
-                                <h5 class="align-self-center">Dummy Data</h5>
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-6">
-                                <div class="row panel-badan">
-                                    <div class="col-12">
-                                        <strong>Umur:</strong> 21
-                                    </div>
-                                </div>
-                                <div class="row panel-badan">
-                                    <div class="col-12">
-                                        <strong>Berat Badan:</strong>
-                                    </div>
-                                    <div class="col-12">
-                                        49 kg
-                                    </div>
-                                </div>
-                                <div class="row panel-badan">
-                                    <div class="col-12">
-                                        <strong>Tinggi Badan:</strong>
-                                    </div>
-                                    <div class="col-12">
-                                        178 cm
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <div class="col-6">
-                                <div class="row panel-badan">
-                                    <div class="col-12">
-                                        <strong>Email:</strong>
-                                    </div>
-                                    <div class="col-12">
-                                        rafi.nizar.dev1@gmail.com
-                                    </div>
-                                </div>
-                                <div class="row panel-badan">
-                                    <div class="col-12">
-                                        <strong>No Hp:</strong>
-                                    </div>
-                                    <div class="col-12">
-                                        0812 14045
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            </div>   -->
+            <div class="row m-2">
+                <div class="col-12 row">
+                    <div id="gol-F-ALL" class="col-2 card mx-1 filter-gol filter-gol-active" data-gol="ALL" onclick="filterGolongan(this)">
+                        all
+                     </div>
+                    <div id="gol-F-A" class="col-2 card mx-1 filter-gol" data-gol="A" onclick="filterGolongan(this)">
+                       A
+                    </div>
+                    <div id="gol-F-B" class="col-2 card mx-1 filter-gol" data-gol="B" onclick="filterGolongan(this)">
+                        B
+                    </div>
+                    <div id="gol-F-AB" class="col-2 card mx-1 filter-gol" data-gol="AB" onclick="filterGolongan(this)">
+                        AB
+                    </div>
+                    <div id="gol-F-O" class="col-2 card mx-1 filter-gol" data-gol="O" onclick="filterGolongan(this)">
+                        O
                     </div>
                 </div>
+            </div>
+            <div class="row m-2">
+                <div class="col-12 row">
+                    <div id="resus-F-ALL" class="col-2 card mx-1 filter-resus filter-resus-active" data-resus="ALL" onclick="filterResus(this)">
+                        all
+                     </div>
+                    <div id="resus-F-positif" class="col-4 card mx-1 filter-resus" data-resus="positif" onclick="filterResus(this)">
+                       positif
+                    </div>
+                    <div id="resus-F-negatif" class="col-4 card mx-1 filter-resus" data-resus="negatif" onclick="filterResus(this)">
+                        negatif
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-column mt-1 mx-2" id="list-pendonor">
                
             </div>
         </div>

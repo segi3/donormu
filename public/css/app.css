@@ -32,3 +32,21 @@
 .panel-badan {
     font-size: 13px;
 }
+
+.filter-gol {
+    font-size: 15px;
+}
+
+.filter-resus {
+    font-size: 15px;
+}
+
+.filter-gol-active {
+    background-color: #dc3545 !important;
+    color: aliceblue;
+}
+
+.filter-resus-active {
+    background-color: #dc3545 !important;
+    color: aliceblue;
+}
