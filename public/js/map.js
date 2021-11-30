@@ -159,9 +159,28 @@ fetch('/api/auth')
                 console.log(title, coordinates)
         
                 addRoute(curLong, curLat, coordinates[0], coordinates[1])
+                addPKMRoute(coordinates[0], coordinates[1], pmiLng, pmiLat)
+                layerReorder()
             });
         }
     });
+
+const layerReorder = () => {
+
+    // var layers = map.getStyle().layers;
+    // for (var i=0; i<layers.length; i++) {
+    //     console.log(layers[i])
+    // }
+    // console.log(map.getStyle())
+
+    // map.moveLayer('route')
+    // map.moveLayer('routeToPMI')
+    map.moveLayer('myPointsLayer') // current loc marker
+    map.moveLayer('markerPMILayer')
+    // map.moveLayer('distanceLabelLayerToPMI')
+    map.moveLayer('points') // pendonor loc marker
+    // map.moveLayer('distanceLabelLayer')
+}
 
 const addNewRoute = () => {
     map.addLayer({
@@ -206,10 +225,19 @@ const deleteExistingRouteToPMI = () => {
         console.log(err)
     }
 }
+const deleteExistingRouteLabelToPMI = () => {
+    try {
+        map.removeLayer('distanceLabelLayerToPMI')
+        map.removeSource('distanceLabelToPMI')
+    } catch(err) {
+        console.log(err)
+    }
+}
 
-const addPKMRoute = (slong, slat, flong, flat) => {
+const addPKMRoute = async (slong, slat, flong, flat) => {
 
     deleteExistingRouteToPMI()
+    deleteExistingRouteLabelToPMI()
 
     $.ajax({
         url: "/api/getRoute?slong="+slong+"&slat="+slat+"&flong="+flong+"&flat="+flat,
@@ -264,7 +292,7 @@ const addPKMRoute = (slong, slat, flong, flat) => {
             map.addLayer({
                 'id': 'distanceLabelLayerToPMI',
                 'type': 'symbol',
-                'source': 'distanceLabel',
+                'source': 'distanceLabelToPMI',
                 'layout': {
                     'text-field': ['get', 'description'],
                     'text-font': [
@@ -434,7 +462,7 @@ const deleteExistingDistanceLabel = () => {
     }
 }
 
-const addRoute = (slong, slat, flong, flat) => {
+const addRoute = async (slong, slat, flong, flat) => {
 
     deleteExistingRoute()
     deleteExistingDistanceLabel()
@@ -515,7 +543,7 @@ const resetPendonorCardColor = () => {
     $(".badge-resus").removeClass("badge-resus-active")
 }
 
-const pendonorClick = (input) => {
+const pendonorClick = async (input) => {
 
     resetPendonorCardColor()
 
@@ -534,8 +562,9 @@ const pendonorClick = (input) => {
     console.log('dari curr ' + curLong + ' ' + curLat)
     console.log('dari card ' + long + ' ' + lat)
 
-    addRoute(curLong, curLat, long, lat)
-    addPKMRoute(long, lat, pmiLng, pmiLat)
+    await addRoute(curLong, curLat, long, lat)
+    await addPKMRoute(long, lat, pmiLng, pmiLat)
+    layerReorder()
 }
 
 var golonganF = 'ALL'
