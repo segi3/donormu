@@ -5,7 +5,8 @@
         <div class="d-flex justify-content-center">
             <div class="card align-self-center mx-5">
                 <div class="card-body">
-                    Input data pendonor baru
+                    <h4>Input data pendonor baru</h4>
+                    
                     <form id="new-pendonor-form">
                         <div class="row">
                             <div class="col-12 row">
@@ -73,18 +74,28 @@
                                 </div>
                             </div>
                             <div class="col-12 row">
-                                <label for="email">Lokasi anda</label>
-                                <input type="text" id="inputLong" name="long" value="" readonly >
-                                <input type="text" id="inputLat" name="lat" value="" readonly >
-                                <div class="" id="map-app2">
-                                    <div id='map2'></div>
+                                <di class="col-4">
+                                    <label for="email">Lokasi anda (klik pada peta)</label>
+                                    <input type="text" id="inputLong" name="long" value="" readonly >
+                                    <input type="text" id="inputLat" name="lat" value="" readonly >
+                                    
+                                    <div class="mt-2">
+                                        <button type="submit" id="input-submit" class="btn btn-primary">Tambah</button>
+                                        <div id="input-cancel" class="btn btn-default">Kembali</div>
+                                    </div>
+                                    
+                                </di>
+                                <div class="col-6">
+                                    <div class="" id="map-app2">
+                                        <div id='map2'></div>
+                                    </div>
                                 </div>
+                                
                                
                             </div>
                         </div>
 
-                        <button type="submit" id="input-submit" class="btn btn-primary">Tambah</button>
-                        <div id="input-cancel" class="btn btn-default">Kembali</div>
+                        
                     </form>
                 </div>
             </div>

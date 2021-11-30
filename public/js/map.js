@@ -1,5 +1,8 @@
 var map, curLong, curLat
 
+var pmiLng = 106.1598511,
+    pmiLat = -6.1180359
+
 fetch('/api/auth')
     .then(response => response.json())
     .then((data) => {
@@ -96,6 +99,67 @@ fetch('/api/auth')
                     }
                 );
             });
+
+            // pmi marker
+            map.on('load', () => {
+                map.loadImage(
+                    'http://localhost:3000/asset/amber.png',
+                    (error, image) => {
+                        if (error) throw error;
+                        map.addImage('markerPMIimage', image);
+                        map.addSource('markerPMI', {
+                            'type': 'geojson',
+                            'data': {
+                                'type': 'FeatureCollection',
+                                'features': [{
+                                        // feature for Mapbox DC
+                                        'type': 'Feature',
+                                        'geometry': {
+                                            'type': 'Point',
+                                            'coordinates': [
+                                                parseFloat(pmiLng), parseFloat(pmiLat)
+                                            ]
+                                        },
+                                        'properties': {
+                                            'title': 'UDD PMI Kabupaten Serang'
+                                        }
+                                    }
+                                ]
+                            }
+                        });
+        
+                        // Add a symbol layer
+                        map.addLayer({
+                            'id': 'markerPMILayer',
+                            'type': 'symbol',
+                            'source': 'markerPMI',
+                            'layout': {
+                                'icon-image': 'markerPMIimage',
+                                // get the title name from the source's "title" property
+                                'text-field': ['get', 'title'],
+                                'text-font': [
+                                    'Open Sans Semibold',
+                                    'Arial Unicode MS Bold'
+                                ],
+                                'text-offset': [0, 1.25],
+                                'text-anchor': 'top'
+                            }
+                        });
+                    }
+                );
+            });
+
+            map.on('click', 'points', function (e) {
+
+                map.getCanvas().style.cursor = 'pointer';
+        
+                var coordinates = e.features[0].geometry.coordinates.slice();
+                var title = e.features[0].properties.title;
+
+                console.log(title, coordinates)
+        
+                addRoute(curLong, curLat, coordinates[0], coordinates[1])
+            });
         }
     });
 
@@ -132,6 +196,89 @@ const addNewRoute = () => {
             'line-width': 8
         }
     })
+}
+
+const deleteExistingRouteToPMI = () => {
+    try {
+        map.removeLayer('routeToPMI')
+        map.removeSource('routeToPMI')
+    } catch(err) {
+        console.log(err)
+    }
+}
+
+const addPKMRoute = (slong, slat, flong, flat) => {
+
+    deleteExistingRouteToPMI()
+
+    $.ajax({
+        url: "/api/getRoute?slong="+slong+"&slat="+slat+"&flong="+flong+"&flat="+flat,
+        method: 'get',
+        success: function (result) {
+
+            map.addLayer({
+                id: 'routeToPMI',
+                type: 'line',
+                source: {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'Feature',
+                        'properties': {},
+                        'geometry': {
+                            'type': 'LineString',
+                            'coordinates': result.route,
+                        },
+                    }
+                },
+                layout: {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                paint: {
+                    'line-color': '#FF0000',
+                    'line-width': 5
+                }
+            })
+
+            // add distance label
+            map.addSource('distanceLabelToPMI', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'FeatureCollection',
+                    'features': [{
+                            'type': 'Feature',
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [
+                                    parseFloat(flong), parseFloat(flat)
+                                ]
+                            },
+                            'properties': {
+                                'description': result.distance + " m"
+                            }
+                        }
+                    ]
+                }
+            });
+
+            map.addLayer({
+                'id': 'distanceLabelLayerToPMI',
+                'type': 'symbol',
+                'source': 'distanceLabel',
+                'layout': {
+                    'text-field': ['get', 'description'],
+                    'text-font': [
+                        'Open Sans Semibold',
+                        'Arial Unicode MS Bold'
+                    ],
+                    'text-offset': [0, -3],
+                    'text-anchor': 'top'
+                }
+            });
+        }
+    });
+
+    
 }
 
 const getPendonorList = (long, lat) => {
@@ -316,7 +463,7 @@ const addRoute = (slong, slat, flong, flat) => {
                     'line-cap': 'round'
                 },
                 paint: {
-                    'line-color': '#FF0000',
+                    'line-color': '#3d85c6',
                     'line-width': 8
                 }
             })
@@ -388,6 +535,7 @@ const pendonorClick = (input) => {
     console.log('dari card ' + long + ' ' + lat)
 
     addRoute(curLong, curLat, long, lat)
+    addPKMRoute(long, lat, pmiLng, pmiLat)
 }
 
 var golonganF = 'ALL'
