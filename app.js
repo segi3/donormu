@@ -1,5 +1,7 @@
 require('dotenv').config()
 const express = require('express')
+var bodyParser = require('body-parser')
+var jsonParser = bodyParser.json()
 var path = require('path')
 
 const app = express()
@@ -32,6 +34,14 @@ app.get('/api/auth', (req, res) => {
 app.post('/api/addPendonor', async (req, res) => {
     
     await awsgeo.addData(req.body)
+
+    res.status(200).send({
+        message: 'success'
+    })
+})
+
+app.post('/api/addPendonor2', jsonParser, async(req, res)=> {
+    console.log("Body: ", req.body )
 
     res.status(200).send({
         message: 'success'

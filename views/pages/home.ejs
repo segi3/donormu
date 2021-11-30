@@ -1,6 +1,96 @@
 <%- include('../template/head')-%>
 
 <body>
+    <div id="input-modal" class="modal-input-data" style="width: 100vw; height: 100vh;">
+        <div class="d-flex justify-content-center">
+            <div class="card align-self-center mx-5">
+                <div class="card-body">
+                    Input data pendonor baru
+                    <form id="new-pendonor-form">
+                        <div class="row">
+                            <div class="col-12 row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="name">Nama</label>
+                                        <input name="name" type="text" class="form-control" id="namePendonor" placeholder="Nama anda">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="umur">Umur</label>
+                                        <input name="age" type="text" class="form-control" id="umurPendonor" placeholder="Umur anda">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="selectGolDarah">Golongan Darah</label>
+                                        <select class="form-control" id="selectGolDarahPendonor" name="golDarah">
+                                            <option>A</option>
+                                            <option>B</option>
+                                            <option>AB</option>
+                                            <option>O</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="selectResus">Resus</label>
+                                        <select class="form-control" id="selectResusPendonor" name="resus">
+                                            <option>positif</option>
+                                            <option>negatif</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="tinggiBadan">Tinggi Badan</label>
+                                        <input name="tinggiBadan" type="text" class="form-control" id="tinggiBadanPendonor" placeholder="Tinggi badan">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="beratBadan">Berat Badan</label>
+                                        <input name="beratBadan" type="text" class="form-control" id="beratBadanPendonor" placeholder="Berat badan">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="nohp">Nomor HP</label>
+                                        <input name="nohp" type="text" class="form-control" id="nohpPendonor" placeholder="Nomor HP">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="email">email</label>
+                                        <input name="email" type="text" class="form-control" id="emailPendonor" placeholder="Alamat email">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 row">
+                                <label for="email">Lokasi anda</label>
+                                <input type="text" id="inputLong" name="long" value="" readonly >
+                                <input type="text" id="inputLat" name="lat" value="" readonly >
+                                <div class="" id="map-app2">
+                                    <div id='map2'></div>
+                                </div>
+                               
+                            </div>
+                        </div>
+
+                        <button type="submit" id="input-submit" class="btn btn-primary">Tambah</button>
+                        <div id="input-cancel" class="btn btn-default">Kembali</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
     <!-- <div class="row"> -->
     <div>
         <!-- <div class="col-sm-3 pr-0" id="sidebar-app"> -->
@@ -11,12 +101,18 @@
                 <button class="btn btn-success" id="test">test button</button>
             </div>   -->
             <div class="row m-2">
+                <div class="col-12">
+                    <div id="jadi-pendonor" class="btn btn-block btn-primary mb-2" style="font-size: 15px;">
+                        Jadi pendonor
+                    </div>
+                </div>
                 <div class="col-12 row">
-                    <div id="gol-F-ALL" class="col-2 card mx-1 filter-gol filter-gol-active" data-gol="ALL" onclick="filterGolongan(this)">
+                    <div id="gol-F-ALL" class="col-2 card mx-1 filter-gol filter-gol-active" data-gol="ALL"
+                        onclick="filterGolongan(this)">
                         all
-                     </div>
+                    </div>
                     <div id="gol-F-A" class="col-2 card mx-1 filter-gol" data-gol="A" onclick="filterGolongan(this)">
-                       A
+                        A
                     </div>
                     <div id="gol-F-B" class="col-2 card mx-1 filter-gol" data-gol="B" onclick="filterGolongan(this)">
                         B
@@ -31,19 +127,22 @@
             </div>
             <div class="row m-2">
                 <div class="col-12 row">
-                    <div id="resus-F-ALL" class="col-2 card mx-1 filter-resus filter-resus-active" data-resus="ALL" onclick="filterResus(this)">
+                    <div id="resus-F-ALL" class="col-2 card mx-1 filter-resus filter-resus-active" data-resus="ALL"
+                        onclick="filterResus(this)">
                         all
-                     </div>
-                    <div id="resus-F-positif" class="col-4 card mx-1 filter-resus" data-resus="positif" onclick="filterResus(this)">
-                       positif
                     </div>
-                    <div id="resus-F-negatif" class="col-4 card mx-1 filter-resus" data-resus="negatif" onclick="filterResus(this)">
+                    <div id="resus-F-positif" class="col-4 card mx-1 filter-resus" data-resus="positif"
+                        onclick="filterResus(this)">
+                        positif
+                    </div>
+                    <div id="resus-F-negatif" class="col-4 card mx-1 filter-resus" data-resus="negatif"
+                        onclick="filterResus(this)">
                         negatif
                     </div>
                 </div>
             </div>
             <div class="d-flex flex-column mt-1 mx-2" id="list-pendonor">
-               
+
             </div>
         </div>
 
@@ -53,13 +152,14 @@
         </div>
     </div>
 
-    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
-    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
-    
-    
-    <script>
-        
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js">
+    </script>
+    <link rel="stylesheet"
+        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css"
+        type="text/css">
 
+
+    <script>
         // https://api.mapbox.com/directions/v5/mapbox/driving-traffic/106.1502463,-6.0947954;106.152018,-6.112777?overview=full&geometries=geojson&access_token=
 
         // https://api.mapbox.com/geocoding/v5/mapbox.places/rahayu%20residence%20blok%20a7%20no%201%20serang%20banten.json?access_token=

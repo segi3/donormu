@@ -9,6 +9,11 @@
     width: 100%;
 }
 
+#map2 {
+    height: 300px;
+    width: 1000px;
+}
+
 #sidebar-app {
     position: fixed;
     width: 370px;
@@ -17,6 +22,20 @@
     overflow-y: scroll;
     top: 0;
     bottom: 0;
+}
+
+.modal-input-data {
+    display: none;
+    position: fixed; /* Stay in place front is invalid - may break your css so removed */  
+    left: 0;
+    padding-top: 30px;
+    right:0; /* Full width (left and right 0) */
+    top: 0;
+    bottom: 0; /* Full height top and bottom 0 */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    z-index: 9999; /* Sit on top - higher than any other z-index in your site*/
 }
 
 .card-pendonor-active {
