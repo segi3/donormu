@@ -492,7 +492,7 @@ const addRoute = async (slong, slat, flong, flat) => {
                 },
                 paint: {
                     'line-color': '#3d85c6',
-                    'line-width': 8
+                    'line-width': 5
                 }
             })
 
