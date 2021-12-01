@@ -10,7 +10,7 @@ Install node dependencies using
 npm install
 ```
 
-Copy `.env.bak` to `.env` and fill in the appropriate keys. This application is utilizing dynamodb so aws key is required.
+Copy `.env.bak` to `.env` and fill in the appropriate keys. This application is utilizing dynamodb therefore aws key is required.
 
 Run application with;
 
